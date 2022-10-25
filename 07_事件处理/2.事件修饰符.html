@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09-事件修饰符</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            margin-top: 20px;
+        }
+
+        .box1 {
+            height: 50px;
+            background-color: pink;
+        }
+
+        .box2 {
+            padding: 5px;
+            background-color: skyblue;
+        }
+
+        .box3 {
+            padding: 5px;
+            background-color: red;
+        }
+
+        ul {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            overflow: auto;
+        }
+
+        li {
+            height: 100px;
+            background-color: peru;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+				Vue中的事件修饰符：
+						1.prevent：阻止默认事件（常用）；
+						2.stop：阻止事件冒泡（常用）；
+						3.once：事件只触发一次（常用）；
+						4.capture：使用事件的捕获模式；
+						5.self：只有event.target是当前操作的元素时才触发事件；
+						6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕；
+		-->
+    <div id="root">
+        <!-- 1.阻止默认事件行为:.prevent -->
+        <a href="http://www.baidu.com" @click.prevent="showinf1">阻止默认事件行为</a>
+
+        <!-- 2.阻止事件冒泡:.stop，添加到里层 -->
+        <div class="box1" @click="showinf2">
+            <button @click.stop="showinf3">阻止事件冒泡</button>
+        </div>
+
+        <!-- 3.事件只触发一次 -->
+        <button @click.once="showinf3">事件只触发一次</button>
+
+        <!-- 4.使用事件的捕获模式(事件默认为冒泡顺序)：.capture，添加到外层 -->
+        <div class="box2" @click.capture="showmsg(1)">
+            div1
+            <div class="box3" @click="showmsg(2)">
+                div2
+            </div>
+        </div>
+
+        <!-- 5.只有event.target是当前元素才触发事件：.self -->
+        <!-- 当点击btn时，box1的点击事件不触发 -->
+        <div class="box1" @click.self="showinf2">
+            <button @click="showinf3">只有event.target是当前元素才触发事件</button>
+        </div>
+
+        <!-- 6.事件的默认行为立即执行，无需等待事件回调执行完毕 .passive -->
+        <!-- 默认滚动事件，先执行函数，再执行事件 -->
+        <!-- 让滚动事件先执行滚动，再执行函数 -->
+        <ul @scroll.passive="scroll">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {},
+            methods: {
+                showinf1(e) {
+                    // 阻止默认事件行为
+                    // e.preventDefault();
+                    alert('即将跳往链接');
+                },
+                showinf2(e) {
+                    alert('div事件');
+                },
+                showinf3(e) {
+                    // 阻止事件冒泡
+                    // e.stopPropagation();
+                    alert('btn事件');
+                },
+                showmsg(msg) {
+                    console.log(msg);
+                },
+                // 默认滚动事件，先执行函数，再执行事件
+                scroll() {
+                    for (var i = 0; i <= 10000; i++) {
+                        console.log('@');
+                    }
+                    console.log('滚动了一次');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

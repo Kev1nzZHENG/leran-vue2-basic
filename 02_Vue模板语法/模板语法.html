@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-模板语法</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- ## 二、**模板**语法
+
+* Vue模板语法有两大类：插值语法、指令语法；
+
+* **插值语法：**
+
+  * **功能：用于解析标签体内容；**
+  * 写法：{{xxx}}，xx是js表达式，且可以直接读取到data中的所有属性；
+
+* **指令语法：**
+
+  * **功能：用于解析标签（包含：标签属性、标签体内容、绑定事件......）；**
+  * 举例：<a v-bind:href="xxx">或简写为<a :href="xxx">，xxx同样要写js表达式；且可以直接读取到data中的所有属性；
+  * 备注：Vue中有很多的指令，且形式都是：v-???，此处只是拿v-bind解析标签属性举例子，其他解析标签使用其他指令； -->
+
+    <div id="root">
+        <h1>插值语法</h1>
+        <h3>你好,{{name}}</h3>
+        <hr>
+        <h1>指令语法</h1>
+        <a href="http://www.atguigu.com" index="1">点我去{{school.name}}学习1</a>
+        <!-- v-bind:解析标签属性，读取该属性为js表达式（变量） -->
+        <a v-bind:href="school.url" :index="num">点我去{{school.name}}学习2</a>
+        <!-- v-bind 简写 : -->
+        <a :href="school.url.toUpperCase()">点我去{{school.name}}学习3</a>
+    </div>
+    <script>
+        Vue.config.productionTip = false; //以阻止 vue 在启动时生成生产提示
+        var x = new Vue({
+            el: '#root',
+            data: {
+                name: 'jack',
+                num: '2',
+                school: {
+                    name: '尚硅谷',
+                    url: 'http://www.atguigu.com'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

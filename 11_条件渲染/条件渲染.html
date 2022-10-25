@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18-条件渲染</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前的n值是:{{n}}</h2>
+        <button @click="n++">点我n+1</button><br><br>
+
+        <!-- 使用v-show渲染 -->
+        <!-- 修改标签样式显示与隐藏等同于display:block/none -->
+        <!-- v-show的值可以为布尔值也可以为条件表达式 -->
+        <h2 v-show="true">{{test1}}</h2>
+        <!-- <h2 v-show="1===1">{{test1}}</h2> -->
+        <h2 v-show="false">{{test2}}</h2>
+        <!-- <h2 v-show="1===2">{{test2}}</h2> -->
+
+        <!-- 使用v-if做条件渲染 -->
+        <!-- 修改标签显示与隐藏：在布尔值为true时，创建节点；布尔值为false时，将不展示的DOM元素移除节点 -->
+        <!-- v-if的值可以为布尔值也可以为条件表达式 -->
+        <h2 v-if="true">{{test3}}</h2>
+        <!-- <h2 v-show="1===1">{{test1}}</h2> -->
+        <h2 v-if="false">{{test4}}</h2>
+        <!-- <h2 v-show="1===2">{{test2}}</h2> -->
+
+        <!-- v-else-if和v-else -->
+        <!-- 注意：v-if可以和v-else-if、v-else一起使用，但要求结构不能被打断； -->
+        <div v-if="n===1">Angular</div>
+        <div v-else-if="n===2">React</div>
+        <div v-else-if="n===3">Vue</div>
+        <div v-else>哈哈</div>
+
+        <!-- v-if与template搭配使用 -->
+        <!-- 如果想切换多个元素呢？此时可以把一个 `<template>` 元素当做不可见的包裹元素，并在上面使用 `v-if`。最终的渲染结果将不包含 `<template>` 元素（使用template模板不会破坏html结构）。 -->
+        <template v-if="n===4">
+            <h2>你好1</h2>
+            <h2>你好2</h2>
+            <h2>你好3</h2>
+        </template>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                n: 0,
+                test1: '测试文字1',
+                test2: '测试文字2',
+                test3: '测试文字3',
+                test4: '测试文字4',
+            }
+        });
+    </script>
+</body>
+
+</html>

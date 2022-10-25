@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08-事件的基本使用</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>{{message}}</h2>
+        <!-- 正常写法 -->
+        <!-- 不传参，不写$event 效果一致 -->
+        <!-- <button v-on:click="showinf1($event)">点我提示信息1</button> -->
+        <button v-on:click="showinf1">点我提示信息1(不传参)</button>
+        <!-- 简写 -->
+        <button @click="showinf2($event,666)">点我提示信息2(传参)</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                message: '事件的基本使用',
+            },
+            methods: {
+                showinf1(event) {
+                    console.log(this); //vm
+                    console.log(event);//MouseEvent
+                    alert('同学，你好！')
+                },
+                // 传递参数
+                showinf2(event, num) {
+                    console.log(num);
+                    alert('同学，你好！！')
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

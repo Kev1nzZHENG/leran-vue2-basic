@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令-函数式</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前的n值是<span v-text="n"></span></h2>
+        <!-- 需求：定义一个v-big指令，和t-text功能类似，但会把绑定的数值放大10倍 -->
+        <!-- <h2>10倍n的值是<span v-big="n"></span></h2> -->
+        <h2>10倍n的值是<span v-big-number="n"></span></h2>
+        <button @click="n++">n+1</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+            // <!-- 需求：定义一个v-big指令，和t-text功能类似，但会把绑定的数值放大10倍 -->
+            // big函数何时会被调用？  1.指令与元素成功绑定时  2.指令所在的模板被重新解析时；
+            // 局部指令
+            directives: {
+                /* big(element, binding) {
+                    console.log('big函数被调用');
+                    // console.log(element); span
+                    // console.log(binding); 获取绑定指令的相关参数
+                    element.innerText = binding.value * 10;
+                } */
+                'big-number'(element, binding) {
+                    console.log('big函数被调用');
+                    console.log(this); //window
+                    // console.log(element); span
+                    // console.log(binding); 获取绑定指令的相关参数
+                    element.innerText = binding.value * 10;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

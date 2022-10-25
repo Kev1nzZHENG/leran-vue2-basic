@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- ## 一、V-for
+
+    * 1.用于展示列表数据；
+    * 2.用法：v-for：生成多个谁，给谁添加；
+
+    * 例子：在ul中遍历生成多个小li，那么给li标签添加v-for；
+    * 3.语法：v-for="(item,index) in/of xxx" :key="yyy"； key：独特的值（后续补充）；
+    * 4.可遍历：数组、对象、字符串（用的很少）、遍历到指定数字（用的很少）；
+
+    * 数组：第一个形参：整个数组，通常**数组.属性值**；第二个形参：index索引号；
+    * 对象：第一个形参：value值；第二个形参：key值；
+    * 字符串：第一个形参：char字符；第二个形参：index索引号；
+    * 数字：第一个形参：number数字；第二个形参：index索引号； -->
+    <div id="root">
+        <!-- v-for：生成多个谁，给谁添加 -->
+        <!-- 遍历数组 -->
+        <h2>人员列表（遍历数组）</h2>
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+
+        <!-- 遍历对象 -->
+        <h2>汽车信息（遍历对象）</h2>
+        <ul>
+            <li v-for="(value,key) in car" :key="key">
+                <!-- {{value}} -->
+                {{key}}-{{value}}
+            </li>
+        </ul>
+
+        <!-- 遍历字符串(用得少) -->
+        <h2>遍历字符串</h2>
+        <ul>
+            <li v-for="(char,index) in str" :key="index">
+                {{char}}-{{index}}
+            </li>
+        </ul>
+
+        <!-- 遍历指定数字(用得少) -->
+        <h2>遍历指定数字(用得少)</h2>
+        <ul>
+            <li v-for="(number,index) in 5" :key="index">
+                {{number}}-{{index}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '李四', age: 19 },
+                    { id: '003', name: '王五', age: 20 }
+                ],
+                car: {
+                    name: '宝马',
+                    price: '50万',
+                    color: '黑色'
+                },
+                str: 'hello'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

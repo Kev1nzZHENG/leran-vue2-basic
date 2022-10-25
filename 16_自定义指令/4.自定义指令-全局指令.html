@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令-全局指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前的n值是<span v-text="n"></span></h2>
+        <h2>10倍n的值是<span v-big="n"></span></h2>
+        <button @click="n++">n+1</button> <br><br>
+        <input type="text" v-fbind:value="n">
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        // 需求：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点
+        // 全局自定义指令
+        // 对象式
+        Vue.directive('fbind', {
+            // 指令与元素成功绑定时调用
+            bind(element, binding) {
+                element.value = binding.value;
+            },
+            // 指令所在元素被插人页面时调用
+            inserted(element, binding) {
+                element.focus();
+            },
+            // 指令所在的模板被重新解析时调用
+            update(element, binding) {
+                element.value = binding.value;
+            }
+        });
+        // 函数式
+        Vue.directive('big', function (element, binding) {
+            console.log('big函数被调用');
+            // console.log(element); span
+            // console.log(binding); 获取绑定指令的相关参数
+            element.innerText = binding.value * 10;
+        });
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+        });
+    </script>
+</body>
+
+</html>

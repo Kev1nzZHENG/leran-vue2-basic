@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收集表单数据</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <form action="" @submit.prevent="demo">
+            <!-- 输入框：不需要添加value值，用户输入的就是value值，v-model绑定初始值 -->
+            <!-- v-model.trim:过滤输入框首位空格 -->
+            账号：<input type="text" v-model.trim="user.account">
+            <br /><br />
+            密码：<input type="password" v-model="user.password">
+            <br /><br />
+            <!-- 单选框：给input:radio标签添加value属性，v-model绑定初始值 -->
+            性别：
+            男<input type="radio" name="sex" value="male" v-model="user.sex">
+            女<input type="radio" name="sex" value="female" v-model="user.sex">
+            <br /><br />
+            <!-- input:number类型表示只能输入数字，v-model.number：将字符串转换为数字类型 -->
+            年龄：<input type="number" v-model.number="user.age">
+            <br /><br />
+            <!-- 多选框：给input:checkbox标签添加value属性，并v-model绑定的初始值以数组形式存储 -->
+            爱好:
+            学习<input type="checkbox" value="study" v-model="user.hobby">
+            打游戏<input type="checkbox" value="game" v-model="user.hobby">
+            吃饭<input type="checkbox" value="eat" v-model="user.hobby">
+            <br /><br />
+            <!-- 下拉菜单：给<select>添加v-model绑定初始值，给<option>添加value值 -->
+            城市
+            <select v-model="user.city">
+                <option value="">请选择城市</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+                <option value="shenzhen">深圳</option>
+                <option value="guangzhou">广州</option>
+            </select>
+            <br /><br />
+            <!-- 文本框：添加v-model绑定初始值 -->
+            <!-- v-model.lazy懒加载：失去焦点再获取收集数据； -->
+            其他信息：
+            <textarea v-model.lazy="user.text"></textarea>
+            <br /><br />
+
+            <!-- 勾选框 -->
+            <input type="checkbox" v-model="user.agree">阅读并接受<a href="#">《用户协议》</a>
+            <br /><br />
+            <input type="submit">
+        </form>
+
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                user: {
+                    account: '',
+                    password: '',
+                    sex: '',
+                    age: '',
+                    hobby: [],
+                    city: '',
+                    text: '',
+                    agree: ''
+                }
+            },
+            methods: {
+                demo() {
+                    // JSON.stringfy：将JavaScript对象或值转换为JSON字符串
+                    console.log(JSON.stringify(this.user));
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

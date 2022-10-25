@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+## 六、v-pre
+<!-- 
+* 1.作用：Vue会跳过其所在节点的编译过程；
+* 2.使用：v-pre指令放在**没有使用指令语法、没有使用插值语法的节点**，会加快编译过程；
+* **3.注意：v-cloak属性不需要赋值；**
+ -->
+    <div id="root">
+        <h2 v-pre>无需使用Vue</h2>
+        <h2>使用Vue：{{test}}</h2>
+        <h2 v-pre>使用Vue v-pre：{{test}}</h2>
+    </div>
+    <script>
+        Vue.config.productionTip = false;//以阻止 vue 在启动时生成生产提示
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                test: '测试文字'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
